@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+
+
+minio
+kfp==1.8.22
