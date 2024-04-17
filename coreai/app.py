@@ -3,6 +3,7 @@ from pydantic import BaseModel
 import json
 from minio_service import minio_client
 import os
+from task import Task
 
 
 app = FastAPI()
@@ -38,8 +39,10 @@ async def train(params: TrainingParams = Body(...)):
         file_path=f"config_{id}.json"
     )
     os.remove(f"config_{id}.json")
+    task_service = Task()
+    task_id = task_service.submit_training(id=id)
 
-    return {"message": "Training Sumitted!"}
+    return {"message": f"Training Sumitted! Task ID: {task_id}"}
 
 
 if __name__ == "__main__":
